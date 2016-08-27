@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# This is sourced by the run scripts.
+
+. $(dirname $0)/../qemu-common
+

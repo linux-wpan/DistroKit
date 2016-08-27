@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# For some information about how to work with qemu for ARM, please
+# refer: http://fedoraproject.org/wiki/Architectures/ARM/HowToQemu
+
+. $(dirname $0)/qemu-common
+
+# do the job
+${QEMU_EXEC} ${QEMU_NOGRAPHIC} \
+	-m 1024 \
+	-no-reboot \
+	-net nic,vlan=1 \
+	${QEMU_NET} \
+	${QEMU_REDIR} \
+	-kernel ${PTXDIST_PLATFORMDIR}/images/linuximage \
+	-enable-kvm \
+	-append "console=ttyS0 root=/dev/nfs nfsroot=10.0.2.2:/root,v3,tcp,port=2049,mountport=2049 rw mem=1024M rootwait loglevel=5 systemd.log_level=warning systemd.show_status=auto systemd.mask=mnt-data.automount ip=dhcp"
+
