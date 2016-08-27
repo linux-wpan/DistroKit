@@ -41,7 +41,7 @@ fi
 #fi
 
 # the emulator to run
-QEMU_EXEC="${PTXDIST_PLATFORMDIR}/sysroot-host/bin/qemu-system-arm"
+QEMU_EXEC="${PTXDIST_PLATFORMDIR}/sysroot-host/bin/qemu-system-${PTXCONF_ARCH_STRING}"
 
 if [ ! -e "${QEMU_EXEC}" ]; then
 	echo "error: enable and install 'host-qemu' first"
