@@ -17,5 +17,6 @@ ${QEMU_EXEC} ${QEMU_NOGRAPHIC} \
 	-dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb \
 	-drive if=sd,file=${PTXDIST_PLATFORMDIR}/images/hd.img,format=raw \
 	-smp 1 \
+	${QEMU_USB_DEVICE} \
 	-append "console=ttyAMA0 root=/dev/mmcblk0p2 rootfs=ext2 rw mem=1024M rootwait loglevel=5 rootfstype=ext4 systemd.log_level=warning systemd.show_status=auto"
 
