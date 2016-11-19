@@ -1,0 +1,8 @@
+## SECTION=networking
+
+config MLED
+	tristate
+	prompt "mled"
+	select LIBMLE
+	help
+	  Userspace Daemon for Mesh Link Establishment Protocol (MLE).
