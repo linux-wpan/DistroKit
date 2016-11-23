@@ -1,6 +1,4 @@
 #!/bin/bash
-#
-# This is sourced by the run scripts.
 
 platformconfig=selected_platformconfig
 # fallback to platformconfig in the same dir as this script
@@ -50,9 +48,6 @@ fi
 
 # disable this, if you want to have some graphics output
 QEMU_NOGRAPHIC=-nographic
-
-# Machine to emulate: The default kernel is prepared to run on "versatile pb"
-QEMU_MACHINE=vexpress-a9
 
 #
 # 'user mode' network related settings

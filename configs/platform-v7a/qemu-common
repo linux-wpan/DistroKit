@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# This is sourced by the run scripts.
+
+. $(dirname $0)/../qemu-common
+
+# Machine to emulate: The default kernel is prepared to run on "multi arm v7"
+QEMU_MACHINE=vexpress-a9
+

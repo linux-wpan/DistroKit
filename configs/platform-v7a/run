@@ -3,7 +3,7 @@
 # For some information about how to work with qemu for ARM, please
 # refer: http://fedoraproject.org/wiki/Architectures/ARM/HowToQemu
 
-. $(dirname $0)/../qemu-common
+. $(dirname $0)/qemu-common
 
 # do the job
 ${QEMU_EXEC} ${QEMU_NOGRAPHIC} \
