@@ -270,7 +270,7 @@ PTXCONF_GDBSERVER_SHARED=y
 PTXCONF_STRACE=y
 # PTXCONF_SYSSTAT is not set
 # PTXCONF_TRACE_CMD is not set
-# PTXCONF_VALGRIND is not set
+PTXCONF_VALGRIND=y
 
 #
 # ------------------------------------
