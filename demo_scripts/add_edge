@@ -1,0 +1,2 @@
+echo "add $1 $2" > /sys/kernel/debug/fakelb/edges
+echo "add $2 $1" > /sys/kernel/debug/fakelb/edges

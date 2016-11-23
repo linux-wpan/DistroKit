@@ -1,0 +1,6 @@
+echo "add 0 1" > /sys/kernel/debug/fakelb/edges
+echo "add 1 0" > /sys/kernel/debug/fakelb/edges
+echo "add 1 2" > /sys/kernel/debug/fakelb/edges
+echo "add 2 1" > /sys/kernel/debug/fakelb/edges
+
+cat /sys/kernel/debug/fakelb/edges

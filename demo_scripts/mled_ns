@@ -1,0 +1,1 @@
+ip netns exec wpan3 mled -d 9 -n -m stderr -C /etc/mled.conf3 -p /tmp/foo3

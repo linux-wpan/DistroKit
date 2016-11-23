@@ -1,0 +1,2 @@
+echo "del $1 $2" > /sys/kernel/debug/fakelb/edges
+echo "del $2 $1" > /sys/kernel/debug/fakelb/edges

@@ -1,0 +1,4 @@
+sh del_edge 1 4
+sh del_edge 2 5
+sh del_edge 6 9
+sh del_edge 5 8

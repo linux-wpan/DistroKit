@@ -1,0 +1,2 @@
+echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+sunshine -G funfun0 -I $2 -i $1 --timelog --verbose --interval 15000

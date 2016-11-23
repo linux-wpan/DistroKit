@@ -1,0 +1,5 @@
+echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+ip -6 route flush dev $1                                                        
+ip -6 route add fe80::/64 dev $1
+ip -6 route add ff00::/8 dev $1
+sunshine -i $1 -I $2 -G 2003:64:a925:eabb:e2cb:4eff:fe1b:b5{$2} --prefix fdcf:ae60:6b69::/64 --timelog --verbose --interval 60000 --rank 1

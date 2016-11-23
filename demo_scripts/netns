@@ -1,0 +1,37 @@
+#!/bin/sh
+
+rmmod fakelb
+rmmod mrf24j40
+# we need some Private Area Network ID
+panid="0x0000"
+# number of nodes
+numnodes=6
+
+# include the kernel module for a fake node, tell it to create six
+# nodes
+modprobe fakelb numlbs=$numnodes whitelist=1
+
+iwpan dev wpan0 set pan_id 0x0000
+ip link add link wpan0 name lowpan0 type lowpan
+#iwpan dev wpan0 set short_addr 0x0eee
+ip link set wpan0 up                          
+ip link set lowpan0 up 
+
+# initialize all the nodes
+for i in $(seq 1 `expr $numnodes - 1`);
+do
+	ip netns delete wpan${i}
+	ip netns add wpan${i}
+	PHYNUM=`iwpan dev | grep -B 1 wpan${i} | sed -ne '1 s/phy#\([0-9]\)/\1/p'`
+	echo "$PHYNUM"
+	iwpan phy${PHYNUM} set netns name wpan${i}
+
+	ip netns exec wpan${i} iwpan dev wpan${i} set pan_id 0x0000
+#        ip netns exec wpan${i} iwpan dev wpan${i} set short_addr 0x${i}
+	ip netns exec wpan${i} ip link add link wpan${i} name lowpan${i} type lowpan
+	ip netns exec wpan${i} ip link set wpan${i} up
+	ip netns exec wpan${i} ip link set lowpan${i} up
+done
+
+echo "node dump"
+iwpan dev wpan0 node dump

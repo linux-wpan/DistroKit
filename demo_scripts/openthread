@@ -1,0 +1,26 @@
+#!/bin/sh
+rmmod fakelb
+modprobe fakelb numlbs=5
+
+ip link add link wpan0 name lowpan0 type lowpan
+iwpan dev wpan0 set pan_id 0x0000
+ifconfig wpan0 up
+ifconfig lowpan0 up
+
+iwpan dev wpan1 del
+iwpan phy1 interface add ot0 type monitor
+
+iwpan dev wpan2 del
+iwpan phy2 interface add ot1 type monitor
+
+ifconfig ot0 up
+ifconfig ot1 up
+
+iwpan dev wpan3 del
+iwpan phy3 interface add monitor0 type monitor
+
+iwpan dev wpan4 del
+iwpan phy4 interface add ot2 type monitor
+ifconfig ot2 up
+
+ifconfig monitor0 up

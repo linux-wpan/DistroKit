@@ -1,0 +1,7 @@
+digraph {
+	nodesep = 0.5;
+	node [ shape = circle, width = 0.7 ];
+	{ rank = same; phy1; phy2; phy3; }
+	{ rank = same; phy4; phy5; phy6; }
+	{ rank = same; phy7; phy8; phy9; }
+

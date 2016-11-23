@@ -1,0 +1,11 @@
+killall sunshine
+
+sh ~/host lowpan1 1 &
+ip netns exec wpan2 sh ~/host lowpan2 2 &
+ip netns exec wpan3 sh ~/host lowpan3 3 &
+ip netns exec wpan4 sh ~/host lowpan4 4 &
+ip netns exec wpan5 sh ~/host2 lowpan5 5 &
+ip netns exec wpan6 sh ~/host lowpan6 6 &
+ip netns exec wpan7 sh ~/host lowpan7 7 &
+ip netns exec wpan8 sh ~/host lowpan8 8 &
+ip netns exec wpan9 sh ~/host lowpan9 9 &

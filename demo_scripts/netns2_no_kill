@@ -1,0 +1,100 @@
+#!/bin/sh
+
+rmmod fakelb
+rmmod mrf24j40
+# we need some Private Area Network ID
+panid="0x0000"
+# number of nodes
+numnodes=10
+
+# include the kernel module for a fake node, tell it to create six
+# nodes
+modprobe fakelb numlbs=$numnodes whitelist=1
+
+iwpan dev wpan1 set pan_id 0x0000
+ip link add link wpan1 name lowpan1 type lowpan
+ip link set dev wpan1 address 00:00:00:00:00:00:00:01
+ip link set wpan1 up                          
+ip link set lowpan1 up 
+
+echo "add 1 2" > /sys/kernel/debug/fakelb/edges
+echo "add 1 4" > /sys/kernel/debug/fakelb/edges
+
+echo "add 2 1" > /sys/kernel/debug/fakelb/edges
+echo "add 2 5" > /sys/kernel/debug/fakelb/edges
+echo "add 2 3" > /sys/kernel/debug/fakelb/edges
+
+echo "add 3 2" > /sys/kernel/debug/fakelb/edges
+echo "add 3 6" > /sys/kernel/debug/fakelb/edges
+
+echo "add 4 1" > /sys/kernel/debug/fakelb/edges
+echo "add 4 5" > /sys/kernel/debug/fakelb/edges
+echo "add 4 7" > /sys/kernel/debug/fakelb/edges
+
+echo "add 5 2" > /sys/kernel/debug/fakelb/edges
+echo "add 5 4" > /sys/kernel/debug/fakelb/edges
+echo "add 5 6" > /sys/kernel/debug/fakelb/edges
+echo "add 5 8" > /sys/kernel/debug/fakelb/edges
+
+echo "add 6 3" > /sys/kernel/debug/fakelb/edges
+echo "add 6 5" > /sys/kernel/debug/fakelb/edges
+echo "add 6 9" > /sys/kernel/debug/fakelb/edges
+
+echo "add 7 4" > /sys/kernel/debug/fakelb/edges
+echo "add 7 8" > /sys/kernel/debug/fakelb/edges
+
+echo "add 8 5" > /sys/kernel/debug/fakelb/edges
+echo "add 8 7" > /sys/kernel/debug/fakelb/edges
+echo "add 8 9" > /sys/kernel/debug/fakelb/edges
+
+echo "add 9 6" > /sys/kernel/debug/fakelb/edges
+echo "add 9 8" > /sys/kernel/debug/fakelb/edges
+
+echo "add 1 0" > /sys/kernel/debug/fakelb/edges
+echo "add 2 0" > /sys/kernel/debug/fakelb/edges
+echo "add 3 0" > /sys/kernel/debug/fakelb/edges
+echo "add 4 0" > /sys/kernel/debug/fakelb/edges
+echo "add 5 0" > /sys/kernel/debug/fakelb/edges
+echo "add 6 0" > /sys/kernel/debug/fakelb/edges
+echo "add 7 0" > /sys/kernel/debug/fakelb/edges
+echo "add 8 0" > /sys/kernel/debug/fakelb/edges
+echo "add 9 0" > /sys/kernel/debug/fakelb/edges
+
+#ignore phy0
+echo "ign 0" > /sys/kernel/debug/fakelb/edges
+
+iwpan dev wpan0 del
+iwpan phy0 interface add wpan0 type monitor
+ip link set wpan0 up
+
+# initialize all the nodes
+for i in $(seq 2 `expr $numnodes - 1`);
+do
+	ip netns delete wpan${i}
+	ip netns add wpan${i}
+	PHYNUM=`iwpan dev | grep -B 1 wpan${i} | sed -ne '1 s/phy#\([0-9]\)/\1/p'`
+	echo "$PHYNUM"
+	iwpan phy${PHYNUM} set netns name wpan${i}
+
+	ip netns exec wpan${i} iwpan dev wpan${i} set pan_id 0x0000
+	ip netns exec wpan${i} ip link set dev wpan${i} address 00:00:00:00:00:00:00:${i}
+	ip netns exec wpan${i} ip link add link wpan${i} name lowpan${i} type lowpan
+	ip netns exec wpan${i} ip link set wpan${i} up
+	ip netns exec wpan${i} ip link set lowpan${i} up
+done
+
+#while true
+#do
+#	sh sunshine_start
+#	sleep 25
+#done
+
+sh ~/host lowpan1 1 &
+ip netns exec wpan2 sh ~/host lowpan2 2 &
+ip netns exec wpan3 sh ~/host lowpan3 3 &
+ip netns exec wpan4 sh ~/host lowpan4 4 &
+ip netns exec wpan5 sh ~/host2 lowpan5 5 &
+ip netns exec wpan6 sh ~/host lowpan6 6 &
+ip netns exec wpan7 sh ~/host lowpan7 7 &
+ip netns exec wpan8 sh ~/host lowpan8 8 &
+ip netns exec wpan9 sh ~/host lowpan9 9 &

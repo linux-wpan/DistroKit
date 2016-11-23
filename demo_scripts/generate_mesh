@@ -1,0 +1,1 @@
+cat mesh_header > mesh.dot && cat /sys/kernel/debug/fakelb/edges >> mesh.dot

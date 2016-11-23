@@ -1,0 +1,20 @@
+digraph {
+	nodesep = 0.5;
+	node [ shape = circle, width = 0.7 ];
+	{ rank = same; phy1; phy2; phy3; }
+	{ rank = same; phy4; phy5; phy6; }
+	{ rank = same; phy7; phy8; phy9; }
+
+	phy2 -> phy3[label="255"];
+	phy3 -> phy2[label="255"];
+	phy3 -> phy6[label="255"];
+	phy4 -> phy5[label="255"];
+	phy4 -> phy7[label="255"];
+	phy5 -> phy4[label="255"];
+	phy6 -> phy3[label="255"];
+	phy7 -> phy4[label="255"];
+	phy7 -> phy8[label="255"];
+	phy8 -> phy7[label="255"];
+	phy8 -> phy9[label="255"];
+	phy9 -> phy8[label="255"];
+}

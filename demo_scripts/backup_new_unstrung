@@ -1,0 +1,2 @@
+echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+sunshine --interface $1 --instance $2 --dagid fe80::e2cb:4eff:fe1b:b546 --rank 1 --timelog --verbose --interval 10000
