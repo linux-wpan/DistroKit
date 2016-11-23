@@ -89,3 +89,7 @@ QEMU_REDIR=" \
 	-redir tcp:${SSH_EXTERNAL_PORT}:${PLATFORM_IP}:${SSH_INTERNAL_PORT} \
 	-redir tcp:${HTTP_EXTERNAL_PORT}:${PLATFORM_IP}:${HTTP_INTERNAL_PORT} \
 "
+
+if [ -n "${QEMU_USB_DEVICE}" ]; then
+	QEMU_USB_DEVICE="-usb -usbdevice host:$QEMU_USB_DEVICE"
+fi

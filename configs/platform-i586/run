@@ -14,6 +14,7 @@ ${QEMU_EXEC} ${QEMU_NOGRAPHIC} \
 	${QEMU_REDIR} \
 	-kernel ${PTXDIST_PLATFORMDIR}/images/linuximage \
 	-enable-kvm \
+	${QEMU_USB_DEVICE} \
 	-drive if=virtio,file=${PTXDIST_PLATFORMDIR}/images/hd.img,format=raw \
 	-append "console=ttyS0 root=/dev/vda1 rootfs=ext2 rw mem=1024M rootwait loglevel=5 rootfstype=ext4 systemd.log_level=warning systemd.show_status=auto systemd.mask=mnt-data.automount"
 
