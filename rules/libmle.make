@@ -36,10 +36,10 @@ LIBMLE_CONF_ENV = \
 # autoconf
 #
 LIBMLE_CONF_TOOL	:= autoconf
-#LIBMLE_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
-
-LIBMLE_INSTALL_OPT := \
-	installcheck
+#LIBMLE_CONF_OPT		:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-shared \
+	--enable-static
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -54,7 +54,9 @@ $(STATEDIR)/libmle.targetinstall:
 	@$(call install_fixup, libmle,AUTHOR,"Alexander Aring <aar@pengutronix.de>")
 	@$(call install_fixup, libmle,DESCRIPTION,missing)
 
-	@$(call install_lib, libmle, 0, 0, 0644, libmle
+	@$(call install_lib, libmle, 0, 0, 0644, libmle)
+
+	@$(call install_copy, libmle, 0, 0, 0755, -, /usr/bin/mle-util)
 
 	@$(call install_finish, libmle)
 
