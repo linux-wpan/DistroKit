@@ -81,7 +81,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-curl \
 	--enable-fdt \
 	--disable-bluez \
-	--disable-kvm \
+	--enable-kvm \
 	--disable-rdma \
 	--disable-uuid \
 	--disable-netmap \
